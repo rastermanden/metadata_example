@@ -1,0 +1,107 @@
+{% extends "metadata/base.html" %}
+{% load range %}
+
+
+     {% block jquery %}
+  
+    $("#search-query").keyup(function(event){
+    if(event.keyCode == 13){
+        $("#search-button").click();
+    }
+	});
+    
+
+    {% endblock %}  
+{% block content %}
+    <h2>Metadata list</h2>
+		<script>
+		function t(){
+			window.location.href="{% url 'list' %}";
+		};
+		function search(){
+			var searchstring = $('#search-query').val();
+			window.location.href="{% url 'list' %}?search="+searchstring;
+		};
+		</script>
+    {% if search %}
+       <input id="search-query" type="text" class="search-query" placeholder="Søg metadata"  value="{{ search}}">
+     {% else %}
+      <input id="search-query" type="text" class="search-query" placeholder="Søg metadata"/>
+     {% endif %}
+  	 
+  	 
+
+	  <button onclick="search();" id="search-button" class="btn btn-small" type="button">Søg</button>
+	  <button onclick="t();" class="btn btn-small btn-primary" type="button">Se alle metadata</button>
+    
+    <a class="btn btn-default" href="/admin/metadata/metadata/add/">Tilføj</a>	  
+
+
+   </br>
+   </br>
+    <div>
+  <ul class="pagination">
+    {% if page_obj.has_previous %}
+     <li><a href="?page={{ page_obj.previous_page_number }}">Prev</a></li>
+      {% else %}
+      <li class="disabled"><a href="/">Prev</a></li>
+      
+    {% endif %}
+
+{% with number=paginator.num_pages %}
+  
+{% for i in number|get_range %}
+    <li><a href="?page={{ i|add:"1" }}">{{ i|add:"1" }}</a></li>
+{% endfor %}
+    
+{% endwith %}
+
+    
+    {% if page_obj.has_next %}
+                <li><a href="?page={{ page_obj.next_page_number }}">Next</a></li>
+     {% else %}
+      <li class="disabled"><a href="/">Next</a></li>
+    {% endif %}
+
+
+
+  </ul>
+
+</div>
+
+    <ul>
+        {% for Metadata in metadata_list %}
+          
+            <li><a href="{% url 'detail'  Metadata.slug %}"> {{ Metadata.title }}</a></li>
+        {% endfor %}
+    </ul>
+
+    <div class="pagination pagination-medium">
+  <ul class="pagination">
+    {% if page_obj.has_previous %}
+     <li><a href="?page={{ page_obj.previous_page_number }}">Prev</a></li>
+      {% else %}
+      <li class="disabled"><a href="/">Prev</a></li>
+      
+    {% endif %}
+
+{% with number=paginator.num_pages %}
+  
+{% for i in number|get_range %}
+    <li><a href="?page={{ i|add:"1" }}">{{ i|add:"1" }}</a></li>
+{% endfor %}
+    
+{% endwith %}
+
+    
+    {% if page_obj.has_next %}
+                <li><a href="?page={{ page_obj.next_page_number }}">Next</a></li>
+     {% else %}
+      <li class="disabled"><a href="/">Next</a></li>
+    {% endif %}
+
+
+
+  </ul>
+</div>
+{% endblock %}

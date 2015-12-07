@@ -1,0 +1,48 @@
+{% extends "metadata/base.html" %}
+
+ {% block content %}
+
+<h2>Metadata detaljer for {{ metadata_detail.title }} </h2>
+
+<table class="table-striped table-bordered table-hover">
+	  <thead>
+	    <tr>
+	      <th>Generelt</th>
+	      <th>Indhold</th>
+	    </tr>
+	  </thead>
+	<tr>
+		<td>Resourcetitel</td>
+		<td>{{ metadata_detail.title }}</td>
+	</tr>
+	<tr>
+		<td>Resumé</td>
+		<td>{{ metadata_detail.abstract }}</td>
+	</tr>
+	<tr>
+		<td>Formål</td>
+		<td>{{ metadata_detail.purpose }}</td>
+	</tr>
+		  <thead>
+	    <tr>
+	      <th>Tid</th>
+	      <th>Indhold</th>
+
+	  </thead>
+	<tr>
+		<td>Oprettet</td>
+		<td>{{ metadata_detail.created }}</td>
+	</tr>
+	<tr>
+		<td>Opdateret</td>
+		<td>{{ metadata_detail.updated }}</td>
+	</tr>
+	<tr>
+		<td>Opdateret</td>
+		<td>{{ metadata_detail.updated }}</td>
+	</tr>
+</table>
+
+<a class="btn btn-default" href="/admin/metadata/metadata/{{ metadata_detail.fileidentifier}}/change/">Redigér</a>	 
+
+{% endblock %}
